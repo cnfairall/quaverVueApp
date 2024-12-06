@@ -1,5 +1,7 @@
-# QuaverEd App
----
+
+# <img src="https://www.quavered.com/wp-content/uploads/2020/01/00_QuaverEd_Logo_-e1585238605757.png" alt="logo" width="100px"/> QuaverEd App
+  
+
 
 ## Popular C# Repositories on GitHub
 
