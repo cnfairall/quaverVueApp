@@ -1,8 +1,5 @@
 
-# <img src="https://www.quavered.com/wp-content/uploads/2020/01/00_QuaverEd_Logo_-e1585238605757.png" alt="logo" width="100px"/> QuaverEd App
-  
-
-
+## <img src="https://www.quavered.com/wp-content/uploads/2020/01/00_QuaverEd_Logo_-e1585238605757.png" alt="logo"/>
 ## Popular C# Repositories on GitHub
 
 ### Utilizing C# and Vue.js, and whatever other frameworks/libraries you feel most comfortable with, complete the following: 
