@@ -46,9 +46,14 @@ export default defineConfig({
             '^/weatherforecast': {
                 target,
                 secure: false
-            }
         },
-        port: 5173,
+        "/controllers": {
+          target: "http://127.0.0.1:8000",
+          changeOrigin: true,
+          rewrite: (path) => path.replace(/^\/api/, "/api"),
+        },
+        },
+        port: 7170,
         https: {
             key: fs.readFileSync(keyFilePath),
             cert: fs.readFileSync(certFilePath),
