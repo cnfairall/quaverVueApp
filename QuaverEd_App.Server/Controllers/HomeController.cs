@@ -1,6 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using QuaverEd_App.Server.Models;
+using System.Net.Http.Headers;
+using System.Net;
+using Octokit;
 
 namespace QuaverEd_App.Server.Controllers
 {
@@ -9,12 +12,14 @@ namespace QuaverEd_App.Server.Controllers
     public class HomeController : ControllerBase
     {
 
-
         [HttpGet(Name = "getGithub")]
         public async Task<object> GetAsync()
         {
+            string apiUrl = "https://api.github.com";
+
             using var client = new HttpClient();
-            var response = await client.GetAsync("https://api.github.com/search/repositories?q=public&sort=stars&order=desc");
+            client.DefaultRequestHeaders.Add("User-Agent", "request");
+            var response = await client.GetAsync($"{apiUrl}/search/repositories?q=language:C%23&per_page=100&page=1&sort=stars&order=desc");
 
             if (response.IsSuccessStatusCode)
             {
@@ -26,7 +31,7 @@ namespace QuaverEd_App.Server.Controllers
                     var repo = RepoDto.FromGithubResponse(gitResponse);
                     return Results.Ok(repo);
                 }
-                return Results.NotFound("no cocktails found");
+                return Results.NotFound("not found");
             }
 
             return Results.StatusCode((int)response.StatusCode);
