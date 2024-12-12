@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Http.Json;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
-using Newtonsoft.Json;
 using QuaverEd_App.Data;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,8 +12,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-//builder.Services.AddDbContext<QuaverEd_AppDbContext>(builder.Configuration.GetConnectionString("CocktailClubDbConnectionString"));
-
+builder.Services.AddDbContext<QuaverEd_AppDbContext>(options =>
+options.UseSqlServer(builder.Configuration.GetConnectionString("QuaverEd_AppDbConnection") ?? throw new InvalidOperationException("Connection string 'QuaverEd_AppDbConnection' not found.")));
 // Set the JSON serializer options
 builder.Services.Configure<JsonOptions>(options =>
 {
@@ -42,6 +41,18 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+
+    void ApplyMigration<TDbContext>(IServiceScope scope)
+        where TDbContext : DbContext
+    {
+        using TDbContext context = scope.ServiceProvider
+            .GetRequiredService<TDbContext>();
+
+        context.Database.Migrate();
+    }
+    using IServiceScope scope = app.Services.CreateScope();
+
+    ApplyMigration<QuaverEd_AppDbContext>(scope);
 }
 
 app.UseHttpsRedirection();
@@ -53,8 +64,8 @@ app.MapControllers();
 
 app.MapFallbackToFile("/index.html");
 
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+//app.MapControllerRoute(
+//    name: "default",
+//    pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
