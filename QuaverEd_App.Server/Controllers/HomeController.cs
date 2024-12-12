@@ -14,7 +14,7 @@ namespace QuaverEd_App.Server.Controllers
         public async Task<object> GetAsync()
         {
             using var client = new HttpClient();
-            var response = await client.GetAsync("https://api.github.com/search/repositories?q=public&sort=stars&order=desc");
+            var response = await client.GetAsync("https://api.github.com/search/repositories?q=is:public&sort=stars&order=desc");
 
             if (response.IsSuccessStatusCode)
             {
@@ -26,7 +26,7 @@ namespace QuaverEd_App.Server.Controllers
                     var repo = RepoDto.FromGithubResponse(gitResponse);
                     return Results.Ok(repo);
                 }
-                return Results.NotFound("no cocktails found");
+                return Results.NotFound("not found");
             }
 
             return Results.StatusCode((int)response.StatusCode);

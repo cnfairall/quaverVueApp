@@ -12,7 +12,11 @@ namespace QuaverEd_App.Server.Controllers
     public class RepositoryController : ControllerBase
     {
 
-        //[HttpGet(Name = "Repos")]
+        [HttpGet(Name = "Repos")]
+        public string Get()
+        {
+            return "repos";
+        }
 
     }
 }
