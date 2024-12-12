@@ -10,81 +10,80 @@ namespace QuaverEd_App.Server.Models
     public class RawRepository
     {
         public int Id { get; set; }
-        public string NodeId { get; set; }
         public string Name { get; set; }
         public string FullName { get; set; }
         public bool Private { get; set; }
         public Owner Owner { get; set; }
-        public string HtmlUrl { get; set; }
+        public string Html_Url { get; set; }
         public string Description { get; set; }
         public bool Fork { get; set; }
         public string Url { get; set; }
-        public string ForksUrl { get; set; }
-        public string KeysUrl { get; set; }
-        public string CollaboratorsUrl { get; set; }
-        public string TeamsUrl { get; set; }
-        public string HooksUrl { get; set; }
-        public string IssueEventsUrl { get; set; }
-        public string EventsUrl { get; set; }
-        public string AssigneesUrl { get; set; }
-        public string BranchesUrl { get; set; }
-        public string TagsUrl { get; set; }
-        public string BlobsUrl { get; set; }
-        public string GitTagsUrl { get; set; }
-        public string GitRefsUrl { get; set; }
-        public string TreesUrl { get; set; }
-        public string StatusesUrl { get; set; }
-        public string LanguagesUrl { get; set; }
-        public string StargazersUrl { get; set; }
-        public string ContributorsUrl { get; set; }
-        public string SubscribersUrl { get; set; }
-        public string SubscriptionUrl { get; set; }
-        public string CommitsUrl { get; set; }
-        public string GitCommitsUrl { get; set; }
-        public string CommentsUrl { get; set; }
-        public string IssueCommentUrl { get; set; }
-        public string ContentsUrl { get; set; }
-        public string CompareUrl { get; set; }
-        public string MergesUrl { get; set; }
-        public string ArchiveUrl { get; set; }
-        public string DownloadsUrl { get; set; }
-        public string IssuesUrl { get; set; }
-        public string PullsUrl { get; set; }
-        public string MilestonesUrl { get; set; }
-        public string NotificationsUrl { get; set; }
-        public string LabelsUrl { get; set; }
-        public string ReleasesUrl { get; set; }
-        public string DeploymentsUrl { get; set; }
-        public DateTime CreatedAt { get; set; }
-        public DateTime UpdatedAt { get; set; }
-        public DateTime PushedAt { get; set; }
-        public string GitUrl { get; set; }
-        public string SshUrl { get; set; }
-        public string CloneUrl { get; set; }
-        public string SvnUrl { get; set; }
+        public string Forks_Url { get; set; }
+        public string Keys_Url { get; set; }
+        public string Collaborators_Url { get; set; }
+        public string Teams_Url { get; set; }
+        public string Hooks_Url { get; set; }
+        public string Issue_Events_Url { get; set; }
+        public string Events_Url { get; set; }
+        public string Assignees_Url { get; set; }
+        public string Branches_Url { get; set; }
+        public string Tags_Url { get; set; }
+        public string Blobs_Url { get; set; }
+        public string Git_Tags_Url { get; set; }
+        public string Git_Refs_Url { get; set; }
+        public string Trees_Url { get; set; }
+        public string Statuses_Url { get; set; }
+        public string Languages_Url { get; set; }
+        public string Stargazers_Url { get; set; }
+        public string Contributors_Url { get; set; }
+        public string Subscribers_Url { get; set; }
+        public string Subscription_Url { get; set; }
+        public string Commits_Url { get; set; }
+        public string Git_Commits_Url { get; set; }
+        public string Comments_Url { get; set; }
+        public string Issue_Comment_Url { get; set; }
+        public string Contents_Url { get; set; }
+        public string Compare_Url { get; set; }
+        public string Merges_Url { get; set; }
+        public string Archive_Url { get; set; }
+        public string Downloads_Url { get; set; }
+        public string Issues_Url { get; set; }
+        public string Pulls_Url { get; set; }
+        public string Milestones_Url { get; set; }
+        public string Notifications_Url { get; set; }
+        public string Labels_Url { get; set; }
+        public string Releases_Url { get; set; }
+        public string Deployments_Url { get; set; }
+        public DateTime Created_At { get; set; }
+        public DateTime Updated_At { get; set; }
+        public DateTime Pushed_At { get; set; }
+        public string Git_Url { get; set; }
+        public string Ssh_Url { get; set; }
+        public string Clone_Url { get; set; }
+        public string Svn_Url { get; set; }
         public string Homepage { get; set; }
         public int Size { get; set; }
-        public int StargazersCount { get; set; }
-        public int WatchersCount { get; set; }
+        public int Stargazers_Count { get; set; }
+        public int Watchers_Count { get; set; }
         public string Language { get; set; }
-        public bool HasIssues { get; set; }
-        public bool HasProjects { get; set; }
-        public bool HasDownloads { get; set; }
-        public bool HasWiki { get; set; }
-        public bool HasPages { get; set; }
-        public bool HasDiscussions { get; set; }
-        public int ForksCount { get; set; }
-        public int OpenIssuesCount { get; set; }
+        public bool Has_Issues { get; set; }
+        public bool Has_Projects { get; set; }
+        public bool Has_Downloads { get; set; }
+        public bool Has_Wiki { get; set; }
+        public bool Has_Pages { get; set; }
+        public bool Has_Discussions { get; set; }
+        public int Forks_Count { get; set; }
+        public int Open_Issues_Count { get; set; }
         public License License { get; set; }
-        public bool AllowForking { get; set; }
-        public bool IsTemplate { get; set; }
-        public bool WebCommitSignoffRequired { get; set; }
+        public bool Allow_Forking { get; set; }
+        public bool Is_Template { get; set; }
+        public bool Web_Commit_Signoff_Required { get; set; }
         public List<string> Topics { get; set; }
         public string Visibility { get; set; }
         public int Forks { get; set; }
-        public int OpenIssues { get; set; }
+        public int Open_Issues { get; set; }
         public int Watchers { get; set; }
-        public string DefaultBranch { get; set; }
+        public string Default_Branch { get; set; }
         public float Score { get; set; }
 
     }
@@ -93,23 +92,23 @@ namespace QuaverEd_App.Server.Models
     {
         public string Login { get; set; }
         public int Id { get; set; }
-        public string NodeId { get; set; }
-        public string AvatarUrl { get; set; }
-        public string GravatarId { get; set; }
+        public string Node_Id { get; set; }
+        public string Avatar_Url { get; set; }
+        public string Gravatar_Id { get; set; }
         public string Url { get; set; }
-        public string HtmlUrl { get; set; }
-        public string FollowersUrl { get; set; }
-        public string FollowingUrl { get; set; }
-        public string GistsUrl { get; set; }
-        public string StarredUrl { get; set; }
-        public string SubscriptionsUrl { get; set; }
-        public string OrganizationsUrl { get; set; }
-        public string ReposUrl { get; set; }
-        public string EventsUrl { get; set; }
-        public string ReceivedEventsUrl { get; set; }
+        public string Html_Url { get; set; }
+        public string Followers_Url { get; set; }
+        public string Following_Url { get; set; }
+        public string Gists_Url { get; set; }
+        public string Starred_Url { get; set; }
+        public string Subscriptions_Url { get; set; }
+        public string Organizations_Url { get; set; }
+        public string Repos_Url { get; set; }
+        public string Events_Url { get; set; }
+        public string Received_Events_Url { get; set; }
         public string Type { get; set; }
-        public string UserViewType { get; set; }
-        public bool SiteAdmin { get; set; }
+        public string User_View_Type { get; set; }
+        public bool Site_Admin { get; set; }
     }
 
     public class License
@@ -123,27 +122,28 @@ namespace QuaverEd_App.Server.Models
 
     public class RepoDto
     {
-        public string NodeId { get; set; }
-        public string Name { get; set; }
-        public Owner Owner { get; set; }
-        public DateTime CreatedAt { get; set; }
-        public DateTime PushedAt { get; set; }
-        public string HtmlUrl { get; set; }
-        public string Description { get; set; }
-        public int StargazersCount { get; set; }
+        public int GithubId { get; set; }
+        public string RepoName { get; set; }
+        public string OwnerName { get; set; }
+        public DateTime CreatedDate { get; set; }
+        public DateTime LastPushDate { get; set; }
+        public string RepoUrl { get; set; }
+        public string RepoDescription { get; set; }
+        public int NumStars { get; set; }
 
         public static IEnumerable<RepoDto> FromGithubResponse(GithubResponse response)
         {
-            return response.Items.Select(item => new RepoDto
+            return response.Items
+                .Select(item => new RepoDto
             {
-                NodeId = item.NodeId,
-                Name = item.Name,
-                Owner = item.Owner,
-                CreatedAt = item.CreatedAt,
-                PushedAt = item.PushedAt,
-                HtmlUrl = item.HtmlUrl,
-                Description = item.Description,
-                StargazersCount = item.StargazersCount,
+                GithubId = item.Id,
+                RepoName = item.Name,
+                OwnerName = item.Owner.Login,
+                CreatedDate = item.Created_At,
+                LastPushDate = item.Pushed_At,
+                RepoUrl = item.Html_Url,
+                RepoDescription = item.Description,
+                NumStars = item.Stargazers_Count,
             });
         }
 

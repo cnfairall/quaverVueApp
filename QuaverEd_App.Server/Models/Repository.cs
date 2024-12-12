@@ -1,11 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Numerics;
 
 namespace QuaverEd_App.Server.Models
 {
     public class Repository
     {
         public int Id { get; set; }
-
         public int GithubId { get; set; }
         public string RepoName { get; set; }
         public string OwnerName { get; set; }
