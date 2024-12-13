@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Http.Json;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
 using QuaverEd_App.Data;
+using Microsoft.EntityFrameworkCore.Design;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -42,17 +43,17 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 
-    void ApplyMigration<TDbContext>(IServiceScope scope)
-        where TDbContext : DbContext
-    {
-        using TDbContext context = scope.ServiceProvider
-            .GetRequiredService<TDbContext>();
+    //void ApplyMigration<TDbContext>(IServiceScope scope)
+    //    where TDbContext : DbContext
+    //{
+    //    using TDbContext context = scope.ServiceProvider
+    //        .GetRequiredService<TDbContext>();
 
-        context.Database.Migrate();
-    }
-    using IServiceScope scope = app.Services.CreateScope();
+    //    context.Database.Migrate();
+    //}
+    //using IServiceScope scope = app.Services.CreateScope();
 
-    ApplyMigration<QuaverEd_AppDbContext>(scope);
+    //ApplyMigration<QuaverEd_AppDbContext>(scope);
 }
 
 app.UseHttpsRedirection();
