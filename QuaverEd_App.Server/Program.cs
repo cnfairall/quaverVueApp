@@ -1,8 +1,6 @@
 using Microsoft.AspNetCore.Http.Json;
-using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
 using Newtonsoft.Json;
-using QuaverEd_App.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 

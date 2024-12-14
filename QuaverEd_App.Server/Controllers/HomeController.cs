@@ -1,9 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using QuaverEd_App.Server.Models;
-using System.Net.Http.Headers;
-using System.Net;
-using Octokit;
+
 
 namespace QuaverEd_App.Server.Controllers
 {
