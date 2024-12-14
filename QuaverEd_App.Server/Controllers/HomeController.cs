@@ -39,15 +39,15 @@ namespace QuaverEd_App.Server.Controllers
 
 
     }
-    public class MigrationHelper
-    {
-        public static void ApplyMigration<TDbContext>(IServiceScope scope)
-            where TDbContext : DbContext
-        {
-            using TDbContext context = scope.ServiceProvider
-                .GetRequiredService<TDbContext>();
+    //public class MigrationHelper
+    //{
+    //    public static void ApplyMigration<TDbContext>(IServiceScope scope)
+    //        where TDbContext : DbContext
+    //    {
+    //        using TDbContext context = scope.ServiceProvider
+    //            .GetRequiredService<TDbContext>();
 
-            context.Database.Migrate();
-        }
-    }
+    //        context.Database.Migrate();
+    //    }
+    //}
 }

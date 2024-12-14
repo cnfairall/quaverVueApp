@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using QuaverEd_App.Server.Models;
 
 namespace QuaverEd_App.Data
 {
@@ -8,6 +9,6 @@ namespace QuaverEd_App.Data
         {
 
         }
-        public DbSet<QuaverEd_App.Server.Models.Repository> Repository { get; set; } = default!;
+        public DbSet<Repository> Repository { get; set; } = default!;
     }
 }
