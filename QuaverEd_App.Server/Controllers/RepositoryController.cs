@@ -20,11 +20,29 @@ namespace QuaverEd_App.Server.Controllers
         }
 
 
-        [HttpGet(Name = "Repos")]
-        public string Get()
+        [HttpGet(Name = "Read")]
+        public IResult Get()
         {
-            return "repos";
+            IEnumerable<Repository> repos = _context.Repository;
+            if (repos == null)
+            {
+                return Results.NotFound("No repos found");
+            }
+            else
+            {
+                return Results.Ok(repos);
+            }
         }
+
+        
+
+        //[HttpPut(Name = "Update")]
+        //public IResult Update()
+        //{
+
+        //}
+
+        //public IResult CheckIfRepo
 
     }
 }
