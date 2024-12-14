@@ -1,7 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using QuaverEd_App.Server.Models;
-
+using System.Net.Http.Headers;
+using System.Net;
+using Microsoft.EntityFrameworkCore;
 
 namespace QuaverEd_App.Server.Controllers
 {
@@ -10,7 +12,7 @@ namespace QuaverEd_App.Server.Controllers
     public class HomeController : ControllerBase
     {
 
-        [HttpGet(Name = "getGithub")]
+        [HttpGet(Name = "Index")]
         public async Task<object> GetAsync()
         {
             string apiUrl = "https://api.github.com";
@@ -35,5 +37,17 @@ namespace QuaverEd_App.Server.Controllers
             return Results.StatusCode((int)response.StatusCode);
         }
 
+
     }
+    //public class MigrationHelper
+    //{
+    //    public static void ApplyMigration<TDbContext>(IServiceScope scope)
+    //        where TDbContext : DbContext
+    //    {
+    //        using TDbContext context = scope.ServiceProvider
+    //            .GetRequiredService<TDbContext>();
+
+    //        context.Database.Migrate();
+    //    }
+    //}
 }
