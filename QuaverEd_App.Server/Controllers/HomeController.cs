@@ -45,31 +45,37 @@ namespace QuaverEd_App.Server.Controllers
         }
 
         [HttpPost(Name = "Post")]
-        public IResult Post(RepoDto repoObj)
+        public IResult Post(IEnumerable<RepoDto> githubRepos)
         {
-            var existingRepo = _context.Repository.FirstOrDefault((repo) => repo.GithubId == repoObj.GithubId);
-            if (existingRepo != null)
+            IEnumerable<Repository> existingRepos = _context.Repository.ToList();
+            if (existingRepos != null)
             {
-                return Results.BadRequest("Repo already in database");
+                foreach (var repo in existingRepos)
+                {
+                    _context.Repository.Remove(repo);
+                }
+                _context.SaveChanges();
             }
-            else
+            
+            foreach (var repo in githubRepos)
             {
                 var newRepo = new Repository()
                 {
-                    GithubId = repoObj.GithubId,
-                    RepoName = repoObj.RepoName,
-                    OwnerName = repoObj.OwnerName,
-                    RepoUrl = repoObj.RepoUrl,
-                    RepoDescription = repoObj.RepoDescription,
-                    CreatedDate = repoObj.CreatedDate,
-                    LastPushDate = repoObj.LastPushDate,
-                    NumStars = repoObj.NumStars,
+                    GithubId = repo.GithubId,
+                    RepoName = repo.RepoName,
+                    OwnerName = repo.OwnerName,
+                    RepoUrl = repo.RepoUrl,
+                    RepoDescription = repo.RepoDescription,
+                    CreatedDate = repo.CreatedDate,
+                    LastPushDate = repo.LastPushDate,
+                    NumStars = repo.NumStars
                 };
-                _context.Repository.Add(newRepo);
-                _context.SaveChanges();
-                return Results.Ok(newRepo.Id);
 
+                _context.Repository.Add(newRepo);
             }
+            _context.SaveChanges();
+            return Results.Ok("repos added"); 
+
         }
 
     }
