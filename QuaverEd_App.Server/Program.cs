@@ -33,6 +33,8 @@ builder.Services.AddCors(options =>
     });
 });
 
+System.Diagnostics.Process.Start("efbundle.exe");
+
 var app = builder.Build();
 
 app.UseDefaultFiles();
