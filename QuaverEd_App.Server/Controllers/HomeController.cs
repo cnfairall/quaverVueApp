@@ -9,7 +9,7 @@ using QuaverEd_App.Data;
 namespace QuaverEd_App.Server.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("[controller]/[action]")]
     public class HomeController : ControllerBase
     {
         private readonly QuaverEd_AppDbContext _context;
@@ -19,30 +19,44 @@ namespace QuaverEd_App.Server.Controllers
             _context = context;
         }
 
-        [HttpGet(Name = "Index")]
-        public async Task<object> GetAsync()
+        [HttpGet(Name = "Repos")]
+        public IResult Get()
         {
-            string apiUrl = "https://api.github.com";
-
-            using var client = new HttpClient();
-            client.DefaultRequestHeaders.Add("User-Agent", "request");
-            var response = await client.GetAsync($"{apiUrl}/search/repositories?q=language:C%23&per_page=100&page=1&sort=stars&order=desc");
-
-            if (response.IsSuccessStatusCode)
+            IEnumerable<Repository> repos = _context.Repository;
+            if (repos == null)
             {
-                var json = await response.Content.ReadAsStringAsync();
-                var gitResponse = JsonConvert.DeserializeObject<GithubResponse>(json);
-
-                if (gitResponse != null)
-                {
-                    var repo = RepoDto.FromGithubResponse(gitResponse);
-                    return Results.Ok(repo);
-                }
-                return Results.NotFound("not found");
+                return Results.NotFound("No repos found");
             }
-
-            return Results.StatusCode((int)response.StatusCode);
+            else
+            {
+                return Results.Ok(repos);
+            }
         }
+
+        //[HttpGet(Name = "Index")]
+        //public async Task<object> GetAsync()
+        //{
+        //    string apiUrl = "https://api.github.com";
+
+        //    using var client = new HttpClient();
+        //    client.DefaultRequestHeaders.Add("User-Agent", "request");
+        //    var response = await client.GetAsync($"{apiUrl}/search/repositories?q=language:C%23&per_page=100&page=1&sort=stars&order=desc");
+
+        //    if (response.IsSuccessStatusCode)
+        //    {
+        //        var json = await response.Content.ReadAsStringAsync();
+        //        var gitResponse = JsonConvert.DeserializeObject<GithubResponse>(json);
+
+        //        if (gitResponse != null)
+        //        {
+        //            var repo = RepoDto.FromGithubResponse(gitResponse);
+        //            return Results.Ok(repo);
+        //        }
+        //        return Results.NotFound("not found");
+        //    }
+
+        //    return Results.StatusCode((int)response.StatusCode);
+        //}
 
         [HttpPost(Name = "Post")]
         public IResult Post(IEnumerable<RepoDto> githubRepos)

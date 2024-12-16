@@ -8,7 +8,7 @@ using System.Data;
 
 namespace QuaverEd_App.Server.Controllers
 {
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class RepositoryController : ControllerBase
     {
