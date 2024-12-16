@@ -35,6 +35,8 @@ builder.Services.AddCors(options =>
 
 System.Diagnostics.Process.Start("efbundle.exe");
 
+
+
 var app = builder.Build();
 
 app.UseDefaultFiles();
@@ -45,31 +47,19 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
-
-    //void ApplyMigration<TDbContext>(IServiceScope scope)
-    //    where TDbContext : DbContext
-    //{
-    //    using TDbContext context = scope.ServiceProvider
-    //        .GetRequiredService<TDbContext>();
-
-    //    context.Database.Migrate();
-    //}
-    //using IServiceScope scope = app.Services.CreateScope();
-
-    //ApplyMigration<QuaverEd_AppDbContext>(scope);
 }
 
 app.UseHttpsRedirection();
 app.UseCors();
 
-//app.UseAuthorization();
+app.UseAuthorization();
 
 app.MapControllers();
 
 app.MapFallbackToFile("/index.html");
 
-//app.MapControllerRoute(
-//    name: "default",
-//    pattern: "{controller=Home}/{action=Index}/{id?}");
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
