@@ -42,10 +42,10 @@ namespace QuaverEd_App.Server.Controllers
         }
 
         [HttpGet(Name ="Details")]
-        public IResult Details(int? id)
+        public IResult Details(int id)
         {
             Repository repository = _context.Repository
-                .First((repo) => repo.Id == id);
+                .FirstOrDefault((repo) => repo.Id == id);
             if (repository != null)
             {
                 return Results.Ok(repository);

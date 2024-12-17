@@ -16,7 +16,7 @@ namespace QuaverEd_App.Server.Models
 
         [DataType(DataType.Date)]
         public DateTime LastPushDate { get; set; }
-        public string RepoDescription { get; set; }
+        public string? RepoDescription { get; set; }
         public int NumStars { get; set; }
 
 
