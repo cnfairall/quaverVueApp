@@ -4,6 +4,10 @@ using System.Text.Json.Serialization;
 using QuaverEd_App.Data;
 using MySql.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
+using Newtonsoft.Json;
+using QuaverEd_App.Server.Models;
+using Microsoft.AspNetCore.Mvc;
+using QuaverEd_App.Server.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,7 +21,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<QuaverEd_AppDbContext>(options =>
 options.UseMySQL(builder.Configuration.GetConnectionString("QuaverEd_AppDbConnection") ?? throw new InvalidOperationException("Connection string 'QuaverEd_AppDbConnection' not found.")));
 // Set the JSON serializer options
-builder.Services.Configure<JsonOptions>(options =>
+builder.Services.Configure<Microsoft.AspNetCore.Http.Json.JsonOptions>(options =>
 {
     options.SerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
 });
@@ -35,7 +39,7 @@ builder.Services.AddCors(options =>
 
 System.Diagnostics.Process.Start("efbundle.exe");
 
-
+builder.Services.AddScoped<IGithubService, GithubService>();
 
 var app = builder.Build();
 
@@ -61,5 +65,11 @@ app.MapFallbackToFile("/index.html");
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+using var scope = app.Services.CreateScope();
+var services = scope.ServiceProvider;
+var githubService = services.GetRequiredService<IGithubService>();
+
+await githubService.PostData();
 
 app.Run();
