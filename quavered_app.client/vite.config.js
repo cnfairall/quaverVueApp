@@ -8,55 +8,55 @@ import child_process from 'child_process';
 import { env } from 'process';
 
 const baseFolder =
-    env.APPDATA !== undefined && env.APPDATA !== ''
-        ? `${env.APPDATA}/ASP.NET/https`
-        : `${env.HOME}/.aspnet/https`;
+  env.APPDATA !== undefined && env.APPDATA !== ''
+    ? `${env.APPDATA}/ASP.NET/https`
+    : `${env.HOME}/.aspnet/https`;
 
 const certificateName = "quavered_app.client";
 const certFilePath = path.join(baseFolder, `${certificateName}.pem`);
 const keyFilePath = path.join(baseFolder, `${certificateName}.key`);
 
 if (!fs.existsSync(certFilePath) || !fs.existsSync(keyFilePath)) {
-    if (0 !== child_process.spawnSync('dotnet', [
-        'dev-certs',
-        'https',
-        '--export-path',
-        certFilePath,
-        '--format',
-        'Pem',
-        '--no-password',
-    ], { stdio: 'inherit', }).status) {
-        throw new Error("Could not create certificate.");
-    }
+  if (0 !== child_process.spawnSync('dotnet', [
+    'dev-certs',
+    'https',
+    '--export-path',
+    certFilePath,
+    '--format',
+    'Pem',
+    '--no-password',
+  ], { stdio: 'inherit', }).status) {
+    throw new Error("Could not create certificate.");
+  }
 }
 
 const target = env.ASPNETCORE_HTTPS_PORT ? `https://localhost:${env.ASPNETCORE_HTTPS_PORT}` :
-    env.ASPNETCORE_URLS ? env.ASPNETCORE_URLS.split(';')[0] : 'https://localhost:7170';
+  env.ASPNETCORE_URLS ? env.ASPNETCORE_URLS.split(';')[0] : 'https://localhost:7170';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-    plugins: [plugin()],
-    resolve: {
-        alias: {
-            '@': fileURLToPath(new URL('./src', import.meta.url))
-        }
-    },
-    server: {
-        proxy: {
-            '^/weatherforecast': {
-                target,
-                secure: false
-        },
-        "/controllers": {
-          target: "http://127.0.0.1:8000",
-          changeOrigin: true,
-          rewrite: (path) => path.replace(/^\/api/, "/api"),
-        },
-        },
-        port: 7170,
-        https: {
-            key: fs.readFileSync(keyFilePath),
-            cert: fs.readFileSync(certFilePath),
-        }
+  plugins: [plugin()],
+  resolve: {
+    alias: {
+      '@': fileURLToPath(new URL('./src', import.meta.url))
     }
+  },
+  server: {
+    proxy: {
+      '^/weatherforecast': {
+        target,
+        secure: false
+      },
+      "/controllers": {
+        target: "http://127.0.0.1:8000",
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, "/api"),
+      },
+    },
+    port: 7170,
+    https: {
+      key: fs.readFileSync(keyFilePath),
+      cert: fs.readFileSync(certFilePath),
+    }
+  }
 })

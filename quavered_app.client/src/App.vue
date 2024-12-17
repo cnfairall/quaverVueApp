@@ -1,6 +1,9 @@
 <script setup>
-  import Home from './components/HomePage.vue';
+  import HomePage from './components/HomePage.vue';
+  import DetailsPage from './components/Details.vue'
+
 </script>
 <template>
-  <Home />
+  <HomePage />
+  <DetailsPage />
 </template>

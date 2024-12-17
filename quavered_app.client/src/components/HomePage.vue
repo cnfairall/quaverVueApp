@@ -1,59 +1,47 @@
 <template>
-  <div class="d-flex align-items-center vh-100">
+  <div class="d-flex align-items-center">
     <div class="mx-auto">
-      <img alt="Q logo" src="./icons/Q_Icon.png" class="align-middle rotate" />
-      <div class="fs-5 font-monospace text-center"> QuaverEd, Inc. </div>
-    </div>
-    <div v-if="post" class="content">
-      <table>
-        <thead>
-          <tr>
-            <th>Date</th>
-            <th>Temp. (C)</th>
-            <th>Temp. (F)</th>
-            <th>Summary</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="forecast in post" :key="forecast.date">
-            <td>{{ forecast.date }}</td>
-            <td>{{ forecast.temperatureC }}</td>
-            <td>{{ forecast.temperatureF }}</td>
-            <td>{{ forecast.summary }}</td>
-          </tr>
-        </tbody>
-      </table>
+      <h1>Top 100 Starred C# Projects on Github</h1>
+
+      <div v-if="post" class="content">
+        <table class="table table-bordered table-hover">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Owner</th>
+              <th>Stargazer Count</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="repo in post" :key="repo.id" @click="getDetails(repo.id)">
+              <td>{{ repo.repoName }}</td>
+              <td>{{ repo.ownerName }}</td>
+              <td>{{ repo.numStars }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      
     </div>
   </div>
 </template>
 <style>
- .rotate {
-  animation: rotation 3s linear infinite;
-}
-  @keyframes rotation {
-    from {
-      transform: rotate3d(0, 1, 0, 0deg);
-    }
-
-    to {
-      transform: rotate3d(0, 1, 0, 360deg);
-    }
-  }
 </style>
 <script lang="js">
   import { defineComponent } from 'vue';
 
   export default defineComponent({
+    name: 'HomePage',
     data() {
       return {
         loading: false,
-        post: null
+        post: []
       };
     },
     created() {
       // fetch the data when the view is created and the data is
       // already being observed
-      console.log('hi');
       this.fetchData();
     },
     watch: {
@@ -65,14 +53,27 @@
         this.post = null;
         this.loading = true;
 
-        fetch('Home')
+        fetch('https://localhost:7170/Home/Index')
           .then(r => r.json())
           .then(json => {
             this.post = json;
             this.loading = false;
             return;
           });
-      }
+      },
+      getDetails(id) {
+        this.details = null;
+        this.loading = true;
+
+        fetch('https://localhost:7170/Home/Details/?id=' + id)
+            .then(r => r.json())
+            .then(json => {
+              this.details = json;
+              this.loading = false;
+              console.warn(details);
+              return;
+            });
+        }
     },
   });
 </script>
