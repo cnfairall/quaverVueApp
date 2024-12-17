@@ -4,7 +4,8 @@ import './assets/bootstrap/bootstrap-grid.css'
 import './assets/bootstrap/bootstrap-reboot.css'
 import './assets/bootstrap/bootstrap-utilities.css'
 
-import { createApp } from 'vue'
-import App from './App.vue'
+import { createApp } from 'vue';
+import App from './App.vue';
+import router from './router/Index';
 
-createApp(App).mount('#app')
+createApp(App).use(router).mount('#app')

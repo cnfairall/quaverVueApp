@@ -15,7 +15,7 @@ namespace QuaverEd_App.Server.Models
         public bool Private { get; set; }
         public Owner Owner { get; set; }
         public string Html_Url { get; set; }
-        public string Description { get; set; }
+        public string? Description { get; set; }
         public bool Fork { get; set; }
         public string Url { get; set; }
         public string Forks_Url { get; set; }
@@ -128,7 +128,7 @@ namespace QuaverEd_App.Server.Models
         public DateTime CreatedDate { get; set; }
         public DateTime LastPushDate { get; set; }
         public string RepoUrl { get; set; }
-        public string RepoDescription { get; set; }
+        public string? RepoDescription { get; set; }
         public int NumStars { get; set; }
 
         public static IEnumerable<RepoDto> FromGithubResponse(GithubResponse response)
