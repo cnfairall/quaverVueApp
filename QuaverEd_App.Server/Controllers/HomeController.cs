@@ -20,9 +20,17 @@ namespace QuaverEd_App.Server.Controllers
         }
 
         [HttpGet(Name = "Repos")]
-        public IResult Get()
+        public IResult Index()
         {
-            IEnumerable<Repository> repos = _context.Repository;
+            IEnumerable<ListViewRepo> repos = _context.Repository
+                .Select((repo) =>
+                new ListViewRepo()
+                {
+                  Id = repo.Id,
+                  RepoName = repo.RepoName,
+                  OwnerName = repo.OwnerName,
+                  NumStars = repo.NumStars
+                });
             if (repos == null)
             {
                 return Results.NotFound("No repos found");
@@ -33,41 +41,17 @@ namespace QuaverEd_App.Server.Controllers
             }
         }
 
-
-        [HttpPost(Name = "Post")]
-        public IResult Post(IEnumerable<RepoDto> githubRepos)
+        [HttpGet(Name ="Details")]
+        public IResult Details(int? id)
         {
-            IEnumerable<Repository> existingRepos = _context.Repository.ToList();
-            if (existingRepos != null)
+            Repository repository = _context.Repository
+                .First((repo) => repo.Id == id);
+            if (repository != null)
             {
-                foreach (var repo in existingRepos)
-                {
-                    _context.Repository.Remove(repo);
-                }
-                _context.SaveChanges();
+                return Results.Ok(repository);
             }
-            
-            foreach (var repo in githubRepos)
-            {
-                var newRepo = new Repository()
-                {
-                    GithubId = repo.GithubId,
-                    RepoName = repo.RepoName,
-                    OwnerName = repo.OwnerName,
-                    RepoUrl = repo.RepoUrl,
-                    RepoDescription = repo.RepoDescription,
-                    CreatedDate = repo.CreatedDate,
-                    LastPushDate = repo.LastPushDate,
-                    NumStars = repo.NumStars
-                };
-
-                _context.Repository.Add(newRepo);
-            }
-            _context.SaveChanges();
-            return Results.Ok("repos added"); 
-
+            return Results.BadRequest("repository not found");
         }
-
     }
 
 }
