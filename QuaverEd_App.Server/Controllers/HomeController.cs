@@ -12,6 +12,7 @@ namespace QuaverEd_App.Server.Controllers
     [Route("[controller]/[action]")]
     public class HomeController : ControllerBase
     {
+        //access db via dependency injection
         private readonly QuaverEd_AppDbContext _context;
 
         public HomeController(QuaverEd_AppDbContext context)
@@ -19,6 +20,7 @@ namespace QuaverEd_App.Server.Controllers
             _context = context;
         }
 
+        //get list of top 100 repos
         [HttpGet(Name = "Repos")]
         public IResult Index()
         {
@@ -41,6 +43,7 @@ namespace QuaverEd_App.Server.Controllers
             }
         }
 
+        //get full details of repo by id
         [HttpGet(Name ="Details")]
         public IResult Details(int id)
         {

@@ -41,9 +41,11 @@
       };
     },
     created() {
+      //use router to access route.params object to supply id to get details method
       const route = useRoute();
       const id = route.params.id
-    // fetch the data when the view is created and the data is
+
+      // fetch the data when the view is created and the data is
     // already being observed
     this.getDetails(id);
 
@@ -56,7 +58,7 @@
     getDetails(id) {
       this.details = null;
       this.loading = true;
-
+      //call backend endpoint for get repo details
       fetch('https://localhost:7170/Home/Details/?id='+id)
         .then(r => r.json())
         .then(json => {

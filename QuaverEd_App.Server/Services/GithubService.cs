@@ -8,13 +8,15 @@ namespace QuaverEd_App.Server.Services
 {
     public class GithubService : IGithubService
     {
-
+        //access db via dependency injection
         private readonly QuaverEd_AppDbContext _context;
 
         public GithubService(QuaverEd_AppDbContext context)
         {
             _context = context;
         }
+
+        //fetch data from github api
         public async Task<IEnumerable<RepoDto>> GetGithubData()
         {
             using var client = new HttpClient();
@@ -48,9 +50,13 @@ namespace QuaverEd_App.Server.Services
                 return null;
             }
         }
+
+        //post newest data to database
         public async Task<IResult> PostData()
         {
+            //get github data
             IEnumerable<RepoDto> fetch = await GetGithubData();
+            //clear existing repo data
             IEnumerable<Repository> existingRepos = _context.Repository.ToList();
             if (existingRepos != null)
             {
@@ -60,7 +66,7 @@ namespace QuaverEd_App.Server.Services
                 }
                 _context.SaveChanges();
             }
-
+            //save freshly caught data
             foreach (var repo in fetch)
             {
                 var newRepo = new Repository()
@@ -81,7 +87,6 @@ namespace QuaverEd_App.Server.Services
             return Results.Ok("repos added");
 
         }
-
         
     }
 }

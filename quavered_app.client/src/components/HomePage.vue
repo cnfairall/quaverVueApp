@@ -26,8 +26,6 @@
         </table>
             
       </div>
-      <!--<DetailsPage v-if="details"/>-->
-
 
     </div>
   </div>
@@ -35,7 +33,6 @@
 <style></style>
 <script lang="js">
   import { defineComponent } from 'vue';
-  //import DetailsPage from './details.vue';
 
 export default defineComponent({
   name: 'HomePage',
@@ -59,7 +56,7 @@ export default defineComponent({
     fetchData() {
       this.post = null;
       this.loading = true;
-
+      //get list of repos
       fetch('https://localhost:7170/Home/Index')
         .then(r => r.json())
         .then(json => {
@@ -68,13 +65,7 @@ export default defineComponent({
           return;
         });
     },
-    showDetails() {
-      this.details = true;
-      this.post = false;
-    }
   },
-  //components: {
-  //  DetailsPage
-  //}
+  
 });
 </script>
